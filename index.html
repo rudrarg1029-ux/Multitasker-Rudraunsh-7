@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Rudraunsh Gumaste | The Aesthetic Multiverse ✦</title>
+  <!-- Google Fonts: Elegant + Modern -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Canvas Confetti for extra magic -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0705;
+      font-family: 'Inter', sans-serif;
+      color: #f3ede8;
+      overflow-x: hidden;
+    }
+
+    /* dynamic animated gradient background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, #1a0f0a, #030100);
+    }
+
+    .animated-bg::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 70% 50%, rgba(255, 100, 50, 0.08) 0%, transparent 60%);
+      animation: breatheGlow 8s infinite alternate;
+    }
+
+    @keyframes breatheGlow {
+      0% { opacity: 0.3; transform: scale(1);}
+      100% { opacity: 0.8; transform: scale(1.2);}
+    }
+
+    /* floating particles canvas */
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    /* luxury glass navigation */
+    .luxury-nav {
+      position: sticky;
+      top: 25px;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      width: fit-content;
+      backdrop-filter: blur(20px);
+      background: rgba(15, 10, 8, 0.7);
+      border-radius: 100px;
+      padding: 0.9rem 2.2rem;
+      gap: 2rem;
+      border: 1px solid rgba(255, 160, 80, 0.5);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(255, 100, 30, 0.15);
+    }
+
+    .nav-lux {
+      background: transparent;
+      border: none;
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: #f0cdb0;
+      padding: 0.6rem 1.6rem;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-lux i {
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+
+    .nav-lux:hover {
+      background: rgba(255, 120, 50, 0.3);
+      color: #ffdec2;
+      transform: translateY(-3px);
+      text-shadow: 0 0 8px #ff9f4a;
+    }
+
+    .active-nav-lux {
+      background: linear-gradient(115deg, #ff7e3a, #d94f1a);
+      color: white;
+      box-shadow: 0 0 18px rgba(255, 80, 30, 0.7);
+      border: 1px solid rgba(255, 200, 120, 0.9);
+    }
+
+    .container-premium {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 5rem;
+    }
+
+    section {
+      scroll-margin-top: 110px;
+      margin-bottom: 6rem;
+      transition: all 0.5s ease;
+    }
+
+    /* masterpiece glass card */
+    .masterpiece-card {
+      background: rgba(18, 13, 10, 0.65);
+      backdrop-filter: blur(18px);
+      border-radius: 64px;
+      padding: 2.8rem;
+      border: 1px solid rgba(255, 140, 60, 0.4);
+      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    /* Hero section */
+    .hero-lux {
+      text-align: center;
+      position: relative;
+    }
+
+    .glow-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.8rem, 12vw, 7rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFD9B5, #FFA25B, #FF6F3C);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 15px rgba(255, 100, 40, 0.3);
+      animation: subtleGlow 3s infinite alternate;
+    }
+
+    @keyframes subtleGlow {
+      0% { text-shadow: 0 0 5px rgba(255,100,40,0.2);}
+      100% { text-shadow: 0 0 25px rgba(255,140,60,0.6);}
+    }
+
+    .badge-multitasker {
+      background: rgba(255, 100, 40, 0.2);
+      border: 1px solid #ff8c4a;
+      border-radius: 100px;
+      display: inline-flex;
+      gap: 14px;
+      padding: 0.6rem 2rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      margin: 1.5rem 0;
+    }
+
+    .ornament-divider {
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      color: #ffae70;
+    }
+
+    .enjoy-hologram {
+      font-size: 2.3rem;
+      font-weight: 700;
+      background: rgba(0,0,0,0.5);
+      display: inline-block;
+      padding: 0.6rem 2.2rem;
+      border-radius: 80px;
+      border: 1px solid #ffb368;
+      box-shadow: 0 0 20px rgba(255, 120, 0, 0.3);
+      font-family: 'Space Grotesk', monospace;
+      margin: 1.5rem 0;
+    }
+
+    .skill-matrix {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .skill-neon {
+      background: rgba(0,0,0,0.5);
+      border-radius: 32px;
+      padding: 1.5rem;
+      width: 210px;
+      text-align: center;
+      border: 1px solid rgba(255, 140, 70, 0.6);
+      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+    }
+
+    .skill-neon:hover {
+      transform: translateY(-8px);
+      border-color: #ffaa66;
+      box-shadow: 0 10px 25px rgba(255,100,0,0.2);
+    }
+
+    .skill-neon i {
+      font-size: 2.8rem;
+      color: #ff9862;
+      margin-bottom: 0.8rem;
+    }
+
+    /* coder spotlight */
+    .spotlight-3d {
+      background: linear-gradient(125deg, rgba(45, 25, 15, 0.85), rgba(20, 12, 8, 0.95));
+      border-radius: 48px;
+      padding: 2rem;
+      margin-top: 2rem;
+      border: 1px solid #ff9a55;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      transition: all 0.3s;
+    }
+
+    .quote-elegant {
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+
+    .highlight-lava {
+      background: linear-gradient(120deg, #ff7e3a40, #d95b1a40);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+      color: #ffb485;
+    }
+
+    /* video cards */
+    .cinema-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .video-premium {
+      width: 360px;
+      background: #0a0705cc;
+      border-radius: 36px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 130, 60, 0.5);
+      transition: all 0.4s;
+    }
+
+    .video-premium:hover {
+      transform: scale(1.02) translateY(-8px);
+      border-color: #ff9f5a;
+      box-shadow: 0 30px 30px -12px black, 0 0 25px #ff7a2f80;
+    }
+
+    .video-box {
+      position: relative;
+      padding-bottom: 177.77%;
+      height: 0;
+      background: #000;
+    }
+
+    .video-box iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      border: none;
+    }
+
+    .video-title {
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      background: #030201aa;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #3a2a1e;
+      margin-top: 2rem;
+    }
+
+    .go-top-lux {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #d95b1acc;
+      width: 50px;
+      height: 50px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      border: 1px solid #ffb06a;
+      transition: 0.2s;
+      z-index: 999;
+    }
+
+    .go-top-lux:hover {
+      background: #ff7a2f;
+      transform: translateY(-5px);
+    }
+
+    @media (max-width: 780px) {
+      .container-premium {
+        padding: 1rem;
+      }
+      .luxury-nav {
+        gap: 0.7rem;
+        padding: 0.5rem 1rem;
+      }
+      .nav-lux {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.8rem;
+      }
+      .masterpiece-card {
+        padding: 1.5rem;
+      }
+    }
+
+    /* video error fallback styling */
+    .video-fallback {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="animated-bg"></div>
+<canvas id="particleCanvas"></canvas>
+
+<!-- Navigation -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <div class="luxury-nav">
+    <button class="nav-lux active-nav-lux" data-section="section1"><i class="fas fa-crown"></i> ART&BEATS</button>
+    <button class="nav-lux" data-section="section2"><i class="fas fa-feather"></i> ABOUT</button>
+    <button class="nav-lux" data-section="section3"><i class="fas fa-head-side-headphones"></i> THE BEATS</button>
+  </div>
+</div>
+
+<main class="container-premium">
+  <!-- SECTION 1: Art & Beats + Coder spotlight -->
+  <section id="section1">
+    <div class="masterpiece-card hero-lux">
+      <h1 class="glow-name">RUDRAUNSH<br>GUMASTE</h1>
+      <div class="badge-multitasker">
+        <i class="fas fa-bolt"></i> MULTITASKER RUDRAUNSH <i class="fas fa-brush"></i>
+      </div>
+      <div class="ornament-divider">
+        ✦ A PLACE FOR ART AND BEATS ✦
+      </div>
+      <div class="enjoy-hologram">
+        ENJOY <i class="fas fa-hand-peace"></i>
+      </div>
+      <div class="skill-matrix">
+        <div class="skill-neon"><i class="fas fa-drum"></i><h3>Tabla</h3><p>Classical Beats</p></div>
+        <div class="skill-neon"><i class="fas fa-paintbrush-fine"></i><h3>Drawing</h3><p>Visual Poetry</p></div>
+        <div class="skill-neon"><i class="fas fa-laptop-code"></i><h3>Coder</h3><p>Creative Dev</p></div>
+        <div class="skill-neon"><i class="fas fa-microphone-alt"></i><h3>Content Creator</h3><p>Rhythm & Strokes</p></div>
+      </div>
+
+      <!-- Coder with Tabla, Drawing & Content Creator Spotlight -->
+      <div class="spotlight-3d">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; align-items: center;">
+          <i class="fas fa-code-branch" style="font-size: 3rem; color: #ffb168;"></i>
+          <div>
+            <h2 style="font-family: 'Playfair Display';">✦ The Creative Polymath ✦</h2>
+            <p style="max-width: 700px; margin: 0.5rem auto;">Coder with Tabla, Drawing & Content Creator — blending algorithms, rhythmic tabla strokes, and artistic illustrations into a unique immersive experience. Rudraunsh defines the future of multidisciplinary art.</p>
+          </div>
+          <i class="fas fa-tabla" style="font-size: 3rem; color: #ffb168;"></i>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 1rem;">
+          <span style="background: #292016; padding: 0.3rem 1rem; border-radius: 30px;"><i class="fab fa-js"></i> JavaScript Artist</span>
+          <span style="background: #292016; padding: 0.3rem 1rem; border-radius: 30px;"><i class="fas fa-tabla"></i> Tabla Maestro</span>
+          <span style="background: #292016; padding: 0.3rem 1rem; border-radius: 30px;"><i class="fas fa-paintbrush"></i> Sketching Virtuoso</span>
+          <span style="background: #292016; padding: 0.3rem 1rem; border-radius: 30px;"><i class="fas fa-code"></i> Creative Coder</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: About Me -->
+  <section id="section2">
+    <div class="masterpiece-card">
+      <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+        <i class="fas fa-quote-right" style="font-size: 2rem; color: #ffa15a;"></i>
+        <h2 style="font-family: 'Playfair Display'; font-size: 2.4rem;">About the Artist</h2>
+      </div>
+      <div class="quote-elegant" style="margin-top: 1rem;">
+        <span style="font-size: 1.8rem; font-weight: 600;">"Hi, I'm RUDRAUNSH GUMASTE!"</span><br><br>
+        "I am a student with a passion for both rhythm and color. I spend my time mastering the <span class="highlight-lava">Tabla</span>, exploring the intricacies of Indian classical beats, and bringing ideas to life through <span class="highlight-lava">drawing and painting</span>. As a <span class="highlight-lava">content creator</span>, I love sharing my creative journey with the world—whether it's a new sketch or a rhythmic composition. Follow along as I learn, create, and grow!"
+      </div>
+      <div style="margin: 2rem 0 0; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+        <span class="badge-multitasker" style="background: #261d15;"><i class="fas fa-drum"></i> Tabla Flow</span>
+        <span class="badge-multitasker" style="background: #261d15;"><i class="fas fa-palette"></i> Color Alchemist</span>
+        <span class="badge-multitasker" style="background: #261d15;"><i class="fas fa-laptop"></i> Digital Creator</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE BEATS - Fixed YouTube embeds (no extra parameters) -->
+  <section id="section3">
+    <div class="masterpiece-card" style="text-align: center;">
+      <h2 style="font-family: 'Playfair Display'; font-size: 2.6rem;"><i class="fas fa-head-side-headphones"></i> THE BEATS</h2>
+      <p style="margin-bottom: 2rem; color: #e7c6a5;">cinematic tabla vibrations • rhythmic dimensions</p>
+      <div class="cinema-grid">
+        <!-- Video 1: existing link (vmfexfLBpH8) - clean embed -->
+        <div class="video-premium">
+          <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/vmfexfLBpH8" title="Tabla Beat 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="video-title"><i class="fas fa-waveform"></i> Classical Currents</div>
+        </div>
+        <!-- Video 2: existing link (3-fLiWRj6A4) - clean embed -->
+        <div class="video-premium">
+          <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/3-fLiWRj6A4" title="Tabla Beat 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="video-title"><i class="fas fa-drumstick"></i> Mystic Rhythms</div>
+        </div>
+        <!-- Video 3: NEW Ye Tune Kya Kiya Tabla Cover (MliycaUQI0g) - clean embed -->
+        <div class="video-premium">
+          <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/MliycaUQI0g" title="Ye Tune Kya Kiya Tabla Cover" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="video-title"><i class="fas fa-heart"></i> Ye Tune Kya Kiya | Tabla Cover</div>
+        </div>
+      </div>
+      <p style="margin-top: 2rem; display: inline-block; background: #00000055; padding: 0.6rem 1.8rem; border-radius: 60px; backdrop-filter: blur(8px);">
+        <i class="fas fa-headphones"></i> immerse • pure tabla essence
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <i class="far fa-copyright"></i> Rudraunsh Gumaste — Coder | Tabla | Drawing | Content Creator • Where art meets code & rhythm.
+</footer>
+
+<div class="go-top-lux" id="luxGoTop">
+  <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+  // particles background
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let particleCount = 100;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3.5 + 1;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.4;
+      this.color = `rgba(255, 140, 70, ${Math.random() * 0.35 + 0.1})`;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.y < 0) this.y = canvas.height;
+      if (this.y > canvas.height) this.y = 0;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let p of particles) {
+      p.update();
+      p.draw();
+    }
+    requestAnimationFrame(animateParticles);
+  }
+  initParticles();
+  animateParticles();
+
+  // Navigation and Intersection Observer
+  const navBtns = document.querySelectorAll('.nav-lux');
+  const sectionsMap = {
+    section1: document.getElementById('section1'),
+    section2: document.getElementById('section2'),
+    section3: document.getElementById('section3')
+  };
+
+  function updateActiveSection(activeId) {
+    navBtns.forEach(btn => {
+      const sectionVal = btn.getAttribute('data-section');
+      if (sectionVal === activeId) {
+        btn.classList.add('active-nav-lux');
+      } else {
+        btn.classList.remove('active-nav-lux');
+      }
+    });
+  }
+
+  function scrollToSectionWithMagic(sectionId) {
+    const target = document.getElementById(sectionId);
+    if (target) {
+      const offset = 100;
+      const elementPos = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: elementPos - offset, behavior: 'smooth' });
+      updateActiveSection(sectionId);
+      if (sectionId === 'section3') {
+        canvasConfetti({ particleCount: 120, spread: 75, origin: { y: 0.6 }, colors: ['#ff7e3a', '#ffb56b', '#ffcc88'] });
+      }
+    }
+  }
+
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const targetId = btn.getAttribute('data-section');
+      if (targetId) scrollToSectionWithMagic(targetId);
+    });
+  });
+
+  const observerOptions = { threshold: 0.4, rootMargin: "-80px 0px -20% 0px" };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        if (id) updateActiveSection(id);
+      }
+    });
+  }, observerOptions);
+
+  for (let key in sectionsMap) {
+    if (sectionsMap[key]) observer.observe(sectionsMap[key]);
+  }
+
+  // Go to top
+  const goTop = document.getElementById('luxGoTop');
+  goTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateActiveSection('section1');
+    canvasConfetti({ particleCount: 80, spread: 55, origin: { y: 0.3 }, colors: ['#ff9255', '#ffc285'] });
+  });
+
+  // welcome confetti
+  setTimeout(() => {
+    canvasConfetti({ particleCount: 100, spread: 50, origin: { y: 0.25 }, colors: ['#ff9255', '#ffb56b', '#ffd699'] });
+  }, 400);
+</script>
+</body>
+</html>
